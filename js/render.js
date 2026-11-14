@@ -36,7 +36,9 @@
   function renderCouple() {
     const person = (p, role) => {
       const hon = L.tx(p.honorific);
-      return `<div class="person"><p class="eyebrow person__role">${L.t(role)}</p>
+      const ph = p.photo, name = esc(L.tx(p.first));
+      const photo = ph?.src ? `<figure class="person__photo"><img src="${esc(ph.src)}" width="${ph.w}" height="${ph.h}" alt="${name}" loading="lazy" decoding="async" /></figure>` : "";
+      return `<div class="person">${photo}<p class="eyebrow person__role">${L.t(role)}</p>
         <h2 class="person__name">${hon ? `<small>${esc(hon)}</small>` : ""}${esc(L.tx(p.first))}</h2>
         <ul class="person__family">${p.lines.map((l) => `<li>${esc(L.tx(l))}</li>`).join("")}</ul>
         <p class="person__addr">${esc(L.tx(p.address))}</p></div>`;
