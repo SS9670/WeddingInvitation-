@@ -40,7 +40,7 @@
   /* ---------- Music control: the label shows briefly, then gets out of the way ---------- */
   .music { width: 44px; height: 44px; }
   body.is-open .music__hint { animation: hint-out .5s var(--ease) 6s forwards; }
-  @keyframes hint-out { to { opacity: 0; transform: translateX(6px); visibility: hidden; } }
+  @keyframes hint-out { to { opacity: 0; transform: translateX(-6px); visibility: hidden; } }
 }
 
 /* tablets: the frame switches to its taller crest once it is 700px wide (716px screen), so the text starts lower */
