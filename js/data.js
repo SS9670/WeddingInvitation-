@@ -18,8 +18,8 @@ window.WEDDING = {
       address: { en: "Sadwa Kala, Power House, Naini, Prayagraj", hi: "सड़वा कला, पावर हाउस, नैनी, प्रयागराज" },
       // Round portrait. w/h = the file's pixel size. center = [x, y] pixel at the middle of the
       // circle (the face), size = circle diameter in photo pixels (smaller = closer in).
-      // bg fills any part of the circle beyond the photo's edge.
-      photo: { src: "images/bride.jpg?v=2", w: 624, h: 803, center: [312, 312], size: 624 },
+      // bg fills any part of the circle beyond the photo's edge: a colour, or "blur" (soft blurred photo).
+      photo: { src: "images/bride.jpg?v=2", w: 624, h: 803, center: [376, 280], size: 600, bg: "blur" },
     },
     groom: {
       first: { en: "Shyam", hi: "श्याम" },

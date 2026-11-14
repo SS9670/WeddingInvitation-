@@ -45,6 +45,8 @@ html[lang="hi"] .couple .person__role { font-size: 1.15rem; letter-spacing: .02e
 }
 .person__photo span { position: relative; display: block; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--cream); }
 .person__photo img { position: absolute; display: block; max-width: none; }
+/* bg: "blur" — soft blurred copy of the photo fills the circle behind the sharp one */
+.person__photo img.person__fill { inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(8px); transform: scale(1.15); }
 
 /* ---------- विनीत ---------- */
 .family__vineet { margin-top: 26px; text-align: center; }
