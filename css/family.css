@@ -30,7 +30,7 @@ html[lang="hi"] .person__addr { font: 400 .92rem/1.5 var(--deva); letter-spacing
    object-fit: contain keeps the whole photo (no cropping); the white mat
    absorbs any spare space, so both frames stay the same size. */
 .person__photo {
-  position: relative; width: min(100%, 270px); aspect-ratio: 4 / 5; margin: 10px auto 30px; padding: 8px;
+  position: relative; width: min(100%, 270px); aspect-ratio: 4 / 5; margin: 30px auto 28px; padding: 8px;
   background: #fff; border: 1px solid rgba(184, 138, 68, .6);
   box-shadow: 0 28px 50px -30px rgba(60, 20, 10, .5);
 }
@@ -93,5 +93,5 @@ html[lang="hi"] .venue__when { font: 500 1rem/1.6 var(--deva); letter-spacing: .
   .blessing__shlokas p + p::before { left: 30%; right: 30%; top: -6px; bottom: auto; width: auto; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
   .person__family { margin-top: 12px; }
   .couple__grid { gap: 22px; }
-  .person__photo { width: min(72vw, 250px); margin: 14px auto 24px; }
+  .person__photo { width: min(72vw, 250px); margin: 28px auto 22px; }
 }

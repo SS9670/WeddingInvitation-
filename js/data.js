@@ -17,7 +17,7 @@ window.WEDDING = {
       ],
       address: { en: "Sadwa Kala, Power House, Naini, Prayagraj", hi: "सड़वा कला, पावर हाउस, नैनी, प्रयागराज" },
       // shown whole (never cropped) inside the frame; w/h = the file's pixel size
-      photo: { src: "images/bride.jpg", w: 941, h: 1123 },
+      photo: { src: "images/bride.jpg?v=2", w: 624, h: 803 },
     },
     groom: {
       first: { en: "Shyam", hi: "श्याम" },
@@ -67,8 +67,6 @@ window.WEDDING = {
     hosts: { // निमंत्रक
       names: [{ en: "Shri Ramdhan Sahu", hi: "श्री रामधन साहू" }, { en: "Shri Moolchandra Sahu", hi: "श्री मूलचन्द्र साहू" }],
       address: { en: "Sadwa Kala, Power House, Naini, Prayagraj", hi: "सड़वा कला, पावर हाउस, नैनी, प्रयागराज" },
-      // shown whole (never cropped) inside the frame; w/h = the file's pixel size
-      photo: { src: "images/bride.jpg", w: 941, h: 1123 },
       phones: ["9670162965", "6389633953"],
     },
   },
