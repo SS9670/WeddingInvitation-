@@ -33,12 +33,17 @@
   }
 
   // ---- couple ----
+  // place the photo so pixel `center` sits mid-circle and `size` photo px span the diameter
+  const photoBox = ({ w, h, center = [w / 2, h / 2], size = Math.min(w, h) }) => {
+    const pct = (v) => `${((v / size) * 100).toFixed(3)}%`;
+    return `width:${pct(w)};height:${pct(h)};left:calc(50% - ${pct(center[0])});top:calc(50% - ${pct(center[1])})`;
+  };
+
   function renderCouple() {
     const person = (p, role) => {
       const hon = L.tx(p.honorific);
       const ph = p.photo, name = esc(L.tx(p.first));
-      const look = ph ? `--focus:${esc(ph.focus || "50% 30%")};--zoom:${+ph.zoom || 1}` : "";
-      const photo = ph?.src ? `<figure class="person__photo"><span><img src="${esc(ph.src)}" width="${ph.w}" height="${ph.h}" alt="${name}" loading="lazy" decoding="async" style="${look}" /></span></figure>` : "";
+      const photo = ph?.src ? `<figure class="person__photo"><span style="${ph.bg ? `background:${esc(ph.bg)}` : ""}"><img src="${esc(ph.src)}" width="${ph.w}" height="${ph.h}" alt="${name}" loading="lazy" decoding="async" style="${photoBox(ph)}" /></span></figure>` : "";
       return `<div class="person"><p class="eyebrow person__role">${L.t(role)}</p>${photo}
         <h2 class="person__name">${hon ? `<small>${esc(hon)}</small>` : ""}${esc(L.tx(p.first))}</h2>
         <ul class="person__family">${p.lines.map((l) => `<li>${esc(L.tx(l))}</li>`).join("")}</ul>

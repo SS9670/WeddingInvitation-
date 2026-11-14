@@ -31,8 +31,8 @@ html[lang="hi"] .person__addr { font: 400 .92rem/1.5 var(--deva); letter-spacing
 html[lang="hi"] .couple .person__role { font-size: 1.15rem; letter-spacing: .02em; }
 
 /* Couple photos: a small round portrait in a maroon ring with a gold outer ring.
-   The photo fills the circle; --focus (from data.js) keeps the face centred and
-   --zoom enlarges a photo whose face is small in the frame. */
+   render.js positions the img so the face (photo.center in data.js) sits exactly
+   mid-circle at the chosen photo.size. */
 .person__photo {
   position: relative; width: 180px; aspect-ratio: 1; margin: 28px auto 24px; padding: 5px;
   border-radius: 50%; background: var(--ivory); border: 3px solid var(--maroon);
@@ -43,11 +43,8 @@ html[lang="hi"] .couple .person__role { font-size: 1.15rem; letter-spacing: .02e
   content: ""; position: absolute; left: 50%; top: -17px; width: 10px; height: 10px; translate: -50% 0; rotate: 45deg;
   background: var(--gold); border: 2px solid var(--ivory);
 }
-.person__photo span { display: block; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
-.person__photo img {
-  display: block; width: 100%; height: 100%; object-fit: cover;
-  object-position: var(--focus, 50% 30%); transform: scale(var(--zoom, 1)); transform-origin: var(--focus, 50% 30%);
-}
+.person__photo span { position: relative; display: block; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--cream); }
+.person__photo img { position: absolute; display: block; max-width: none; }
 
 /* ---------- विनीत ---------- */
 .family__vineet { margin-top: 26px; text-align: center; }
