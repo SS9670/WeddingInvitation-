@@ -37,7 +37,8 @@
     const person = (p, role) => {
       const hon = L.tx(p.honorific);
       const ph = p.photo, name = esc(L.tx(p.first));
-      const photo = ph?.src ? `<figure class="person__photo"><img src="${esc(ph.src)}" width="${ph.w}" height="${ph.h}" alt="${name}" loading="lazy" decoding="async" /></figure>` : "";
+      const look = ph ? `--focus:${esc(ph.focus || "50% 30%")};--zoom:${+ph.zoom || 1}` : "";
+      const photo = ph?.src ? `<figure class="person__photo"><span><img src="${esc(ph.src)}" width="${ph.w}" height="${ph.h}" alt="${name}" loading="lazy" decoding="async" style="${look}" /></span></figure>` : "";
       return `<div class="person"><p class="eyebrow person__role">${L.t(role)}</p>${photo}
         <h2 class="person__name">${hon ? `<small>${esc(hon)}</small>` : ""}${esc(L.tx(p.first))}</h2>
         <ul class="person__family">${p.lines.map((l) => `<li>${esc(L.tx(l))}</li>`).join("")}</ul>

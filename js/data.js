@@ -16,8 +16,9 @@ window.WEDDING = {
         { en: "Daughter of Shri Moolchandra Sahu & Late Smt. Santoshi Sahu", hi: "सुपुत्री — श्री मूलचन्द्र साहू एवं स्व. संतोषी साहू" },
       ],
       address: { en: "Sadwa Kala, Power House, Naini, Prayagraj", hi: "सड़वा कला, पावर हाउस, नैनी, प्रयागराज" },
-      // shown whole (never cropped) inside the frame; w/h = the file's pixel size
-      photo: { src: "images/bride.jpg?v=2", w: 624, h: 803 },
+      // round portrait: w/h = the file's pixel size; focus = the face's x% y% in the photo;
+      // zoom (optional) enlarges a photo whose face is small
+      photo: { src: "images/bride.jpg?v=2", w: 624, h: 803, focus: "55% 32%" },
     },
     groom: {
       first: { en: "Shyam", hi: "श्याम" },
@@ -27,7 +28,7 @@ window.WEDDING = {
         { en: "Son of Shri Motilal Sahu & Smt. Prabhavati Sahu", hi: "सुपुत्र — श्री मोतीलाल साहू एवं प्रभावती साहू" },
       ],
       address: { en: "Kauwa Bazar, Baraon, Karchhana, Prayagraj", hi: "कौवा बाजार, बरांव, करछना, प्रयागराज" },
-      photo: { src: "images/groom.jpg", w: 640, h: 642 },
+      photo: { src: "images/groom.jpg", w: 640, h: 642, focus: "53% 22%", zoom: 1.5 },
     },
   },
   monogram: "V & S",
