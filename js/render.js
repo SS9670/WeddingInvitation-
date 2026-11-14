@@ -55,8 +55,7 @@
     L.applyStatic();
     bindText();
     renderCouple();
-    const shareText = `${L.t("shareText")} ${coupleTitle()} · ${U.fullDate(W.weddingDate)}, ${L.tx(W.city)}`;
-    $("#shareBtn").href = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n${location.href.split(/[?#]/)[0]}`)}`;
+    $("#shareBtn").href = `https://wa.me/?text=${encodeURIComponent(`${W.shareMessage}\n${location.href.split(/[?#]/)[0]}`)}`;
   }
   render(false);
 

@@ -125,6 +125,26 @@ window.WEDDING = {
   // Starts on the guest's first tap.
   music: { src: "audio/music.m4a", volume: 0.35 },
 
+  // "Share on WhatsApp" message (same in both languages). The site link is added after the last line.
+  shareMessage: [
+    "💍 With Love, Joy & Blessings!",
+    "",
+    "You’re invited to celebrate the wedding of",
+    "",
+    "*Vandana & Shyam*",
+    "",
+    "As we begin our beautiful journey together.",
+    "",
+    "📅 21st November 2026",
+    "📍 Prayagraj, Uttar Pradesh",
+    "",
+    "Your presence and blessings mean a lot to us.",
+    "",
+    "✨ We look forward to celebrating with you!",
+    "",
+    "💌 Wedding Invitation:",
+  ].join("\n"),
+
   closing: {
     line: { en: "Your presence will make our celebration even more special.", hi: "आपकी उपस्थिति हमारे उत्सव को और भी विशेष बना देगी।" },
     sub: { en: "We look forward to welcoming you and your family.", hi: "आपके और आपके परिवार के स्वागत की हमें प्रतीक्षा रहेगी।" },
