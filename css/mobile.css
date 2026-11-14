@@ -1,0 +1,81 @@
+/* =====================================================================
+   Phone layout refinements. Loaded last so it wins over section styles.
+   Everything here is scoped to small screens; desktop is untouched.
+   ===================================================================== */
+
+/* Music icon: a still equaliser glyph when paused (instead of four dots) */
+.music__bars i:nth-child(1) { height: 7px; }
+.music__bars i:nth-child(2) { height: 13px; }
+.music__bars i:nth-child(3) { height: 9px; }
+.music__bars i:nth-child(4) { height: 15px; }
+
+@media (max-width: 860px) {
+  /* ---------- Hero ----------
+     `1fr` grows to its widest child (the countdown), which pushed the whole
+     text column past the screen edge. minmax(0, 1fr) keeps it at screen width. */
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero__text { min-width: 0; }
+  .hero__tag { text-wrap: balance; }
+  .hero__intro { text-wrap: pretty; }
+
+  /* date and city stack around a small gold diamond */
+  .hero__meta { flex-direction: column; gap: 9px; letter-spacing: .2em; }
+  .hero__meta i { width: 6px; height: 6px; background: none; border: 1px solid var(--gold); transform: rotate(45deg); }
+
+  /* countdown: a framed card with four equal columns that always fits */
+  .countdown {
+    display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: center; gap: 0;
+    width: min(100%, 340px); margin: 24px auto 0; padding: 14px 4px 12px;
+    border: 1px solid rgba(184, 138, 68, .38); border-radius: 18px;
+    background: rgba(251, 246, 238, .6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 18px 30px -24px rgba(90, 26, 36, .45);
+  }
+  .countdown__unit { min-width: 0; padding: 0 2px; }
+  .countdown__num { font-size: clamp(1.7rem, 8.4vw, 2.4rem); }
+  .countdown__lbl { display: block; margin-top: 7px; font-size: .58rem; letter-spacing: .14em; }
+  .countdown__sep { align-self: center; height: 62%; }
+  .countdown__done { grid-column: 1 / -1; padding: 4px 12px; }
+  html[lang="hi"] .countdown__lbl { font-size: .74rem; letter-spacing: 0; }
+
+  /* ---------- Music control: the label shows briefly, then gets out of the way ---------- */
+  .music { width: 44px; height: 44px; }
+  body.is-open .music__hint { animation: hint-out .5s var(--ease) 6s forwards; }
+  @keyframes hint-out { to { opacity: 0; transform: translateX(6px); visibility: hidden; } }
+}
+
+/* tablets: the frame switches to its taller crest once it is 700px wide (716px screen), so the text starts lower */
+@media (min-width: 716px) and (max-width: 860px) {
+  .hero { padding-top: 160px; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding-inline: 28px; }
+  .hero__intro { max-width: 30ch; }
+  .hero__shubh { margin-bottom: 14px; }
+  .hero__tag { font-size: clamp(1.45rem, 6.8vw, 1.8rem); }
+  .hero__intro { font-size: 1.1rem; }
+  .hero__art { --art-w: min(70vw, 270px); }
+
+  /* ---------- Celebrations: label above value reads better than a cramped two-column row ---------- */
+  .event dl { margin: 22px 0 26px; gap: 12px; }
+  .event dl div { grid-template-columns: 1fr; gap: 2px; padding-bottom: 12px; }
+  .event__actions { gap: 10px 18px; }
+
+  /* ---------- Closing: names stacked inside the arch, date and city on their own lines ---------- */
+  .closing__frame { padding: calc(var(--fw) * .4) calc(var(--fw) * .16) calc(var(--fw) * .08); }
+  .closing__frame .closing__names { display: flex; flex-direction: column; align-items: center; font-size: 2.3rem; line-height: 1.05; }
+  .closing__frame .closing__names span:nth-child(2) { font: italic 300 .62em/1.2 var(--serif); color: var(--gold-soft); }
+  html[lang="hi"] .closing__frame .closing__names { font-size: 2rem; line-height: 1.25; }
+  .closing__line { text-wrap: balance; }
+  .closing__frame .closing__thanks { font-size: clamp(1.2rem, 6vw, 1.45rem); text-wrap: balance; }
+
+  /* ---------- Envelope: a little taller and a smaller seal, so the seal never covers the front text ---------- */
+  .env { aspect-ratio: 1.2; }
+  .seal { width: 62px; height: 62px; margin: -31px 0 0 -31px; }
+  .seal__mono { font-size: 1.05rem; }
+  .seal::after { inset: 8px; }
+  .env__pocket-text .eyebrow { display: none; }
+  .env__pocket { padding-bottom: 8%; }
+  .closing__meta { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .closing__meta i { display: none; }
+}

@@ -1,0 +1,106 @@
+/* =====================================================================
+   Ceremonies timeline (js/timeline.js)
+   Phones: one column, line on the left. Desktop: line in the middle,
+   ceremonies alternate left / right. The gold fill follows the scroll (--p).
+   ===================================================================== */
+.timeline { --node: 52px; --p: 0; position: relative; max-width: 1000px; margin: 0 auto; }
+
+/* ---------- track + scroll fill ---------- */
+.timeline__track {
+  position: absolute; top: 0; bottom: 0; left: calc(var(--node) / 2); width: 2px; translate: -50% 0;
+  background: rgba(184, 138, 68, .22); border-radius: 2px;
+  mask-image: linear-gradient(transparent, #000 4%, #000 96%, transparent); -webkit-mask-image: linear-gradient(transparent, #000 4%, #000 96%, transparent);
+}
+.timeline__track i {
+  position: absolute; left: 0; right: 0; top: 0; height: calc(var(--p) * 100%); border-radius: inherit;
+  background: linear-gradient(180deg, #e2b24f, #c98a12 40%, #8a2a38);
+}
+.timeline__track i::after { /* glowing head of the line */
+  content: ""; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; translate: -50% 0; border-radius: 50%;
+  background: #f3c86b; box-shadow: 0 0 0 4px rgba(243, 200, 107, .3), 0 0 16px 4px rgba(243, 200, 107, .55);
+  opacity: calc(var(--p) * 40); /* hidden until the fill starts */
+}
+
+/* ---------- one ceremony ---------- */
+.timeline__list { position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: 44px; }
+.tl-item {
+  --accent: #c98a12; --solid: #c98a12; --tint: #fff7e2; --ink: #4d3205; --soft: rgba(77, 50, 5, .74); --date: #5a3a08;
+  display: grid; grid-template-columns: var(--node) minmax(0, 1fr); column-gap: 18px; align-items: start;
+}
+.tl-item[data-theme="mehendi"] { --accent: #56702f; --solid: #56702f; --tint: #f0f3e3; --ink: #26341a; --soft: rgba(38, 52, 26, .74); --date: #33461f; }
+.tl-item[data-theme="wedding"] { --accent: #e6c27f; --solid: #6b1f2c; --tint: #561822; --ink: #fbeedd; --soft: rgba(251, 238, 221, .78); --date: #5a1a24; }
+.tl-item[data-theme="reception"] { --accent: #9c7740; --solid: #9c7740; --tint: #f7efe3; --ink: #33261a; --soft: rgba(51, 38, 26, .74); --date: #4a3520; }
+
+.tl-node {
+  grid-column: 1; grid-row: 1 / span 2; position: relative; z-index: 1;
+  width: var(--node); height: var(--node); border-radius: 50%; display: grid; place-items: center;
+  background: #fbf3e0; border: 1px solid color-mix(in srgb, var(--solid) 55%, transparent); color: var(--solid);
+  transition: background .5s var(--ease), color .5s var(--ease), box-shadow .5s var(--ease), transform .5s var(--ease), opacity .6s var(--ease);
+}
+.tl-node svg { width: 56%; height: 56%; }
+.tl-item.is-reached .tl-node {
+  background: var(--solid); color: #fff6e4; border-color: var(--solid); transform: scale(1.06);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--solid) 16%, transparent), 0 10px 22px -10px var(--solid);
+}
+.tl-item[data-theme="wedding"].is-reached .tl-node { color: #f0cf96; }
+
+.tl-date { grid-column: 2; display: flex; align-items: center; gap: 12px; min-height: var(--node); }
+.tl-date b { font: 400 2.7rem/1 var(--serif); color: var(--date); font-variant-numeric: lining-nums; }
+.tl-date > span { display: grid; gap: 3px; text-align: left; }
+.tl-date__month { font: 400 .72rem/1 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--solid); }
+.tl-date__day { font: italic 400 1.05rem/1 var(--serif); color: var(--soft); }
+.tl-item[data-theme="wedding"] .tl-date__day { color: rgba(90, 26, 36, .75); }
+
+.tl-card {
+  grid-column: 2; margin-top: 10px; padding: 22px 22px 24px; border-radius: 18px;
+  background: var(--tint); color: var(--ink); border: 1px solid color-mix(in srgb, var(--solid) 30%, transparent);
+  box-shadow: 0 22px 40px -32px rgba(60, 20, 10, .55);
+}
+.tl-item[data-theme="wedding"] .tl-card {
+  background: radial-gradient(ellipse at 30% 0, rgba(246, 181, 68, .18), transparent 60%), linear-gradient(160deg, #6b2230, #4a1220);
+  border-color: rgba(230, 194, 127, .45); box-shadow: inset 0 0 0 5px rgba(86, 24, 34, .9), inset 0 0 0 6px rgba(230, 194, 127, .35), 0 26px 44px -26px rgba(74, 18, 32, .7);
+}
+.tl-card h3 { font-size: clamp(1.9rem, 6vw, 2.6rem); line-height: 1.1; color: var(--ink); }
+.tl-card h3 em { font-family: var(--script); font-style: normal; font-size: .62em; color: var(--accent); white-space: nowrap; }
+.tl-card__text { margin-top: 10px; color: var(--soft); }
+.tl-card__rows { margin: 18px 0 0; display: grid; gap: 12px; }
+.tl-card__rows div { padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+.tl-card__rows dt { font: 400 .66rem/1.6 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
+.tl-card__rows dd { margin: 2px 0 0; font: 400 1.15rem/1.45 var(--serif); }
+.tl-card__rows dd small { display: block; font: 300 .86rem/1.5 var(--sans); color: var(--soft); }
+.tl-card__btn { margin-top: 20px; }
+.tl-item[data-theme="wedding"] .tl-card__btn { background: linear-gradient(135deg, #e2c07e, #b88a44); color: #3c0f17; }
+
+/* ---------- reveal on scroll ---------- */
+.tl-item .tl-node { opacity: 0; transform: scale(.5); }
+.tl-item .tl-date, .tl-item .tl-card { opacity: 0; transform: translateX(26px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.tl-item .tl-card { transition-delay: .12s; }
+.tl-item.is-in .tl-node { opacity: 1; transform: none; }
+.tl-item.is-in.is-reached .tl-node { transform: scale(1.06); }
+.tl-item.is-in .tl-date, .tl-item.is-in .tl-card { opacity: 1; transform: none; }
+
+/* ---------- Hindi ---------- */
+html[lang="hi"] .tl-date__month { font: 500 .95rem/1.1 var(--deva); letter-spacing: .02em; text-transform: none; }
+html[lang="hi"] .tl-date__day { font: 400 .95rem/1.2 var(--deva); }
+html[lang="hi"] .tl-card h3 { font-size: clamp(1.7rem, 5.4vw, 2.3rem); line-height: 1.35; }
+html[lang="hi"] .tl-card h3 em { font-family: var(--deva); font-style: italic; font-size: .6em; }
+html[lang="hi"] .tl-card__rows dt { font: 500 .9rem/1.6 var(--deva); letter-spacing: .02em; text-transform: none; }
+
+/* ---------- Desktop: centre line, alternating sides ---------- */
+@media (min-width: 861px) {
+  .timeline { --node: 64px; }
+  .timeline__track { left: 50%; }
+  .timeline__list { gap: 64px; }
+  .tl-item { grid-template-columns: minmax(0, 1fr) var(--node) minmax(0, 1fr); column-gap: 44px; }
+  .tl-node { grid-column: 2; grid-row: 1; }
+  .tl-date { grid-column: 1; grid-row: 1; justify-content: flex-end; }
+  .tl-date > span { text-align: right; }
+  .tl-date b { font-size: 3.4rem; order: 2; }
+  .tl-card { grid-column: 3; grid-row: 1; margin-top: 0; padding: 28px 30px 30px; }
+  .tl-item .tl-date { transform: translateX(-26px); }
+  .tl-item:nth-child(even) .tl-date { grid-column: 3; justify-content: flex-start; transform: translateX(26px); }
+  .tl-item:nth-child(even) .tl-date > span { text-align: left; }
+  .tl-item:nth-child(even) .tl-date b { order: 0; }
+  .tl-item:nth-child(even) .tl-card { grid-column: 1; transform: translateX(-26px); }
+  .tl-item.is-in .tl-date, .tl-item.is-in .tl-card { transform: none; }
+}

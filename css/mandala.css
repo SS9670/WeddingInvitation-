@@ -1,0 +1,66 @@
+/* ---------- Animated mandalas ---------- */
+.mandala {
+  /* clipped to a circle: the artwork always sits inside radius 100 of the viewBox,
+     but the rotating square ring boxes would otherwise poke out and widen the page */
+  overflow: hidden; border-radius: 50%; contain: paint;
+  position: absolute; pointer-events: none; aspect-ratio: 1; width: var(--size, 520px);
+  color: var(--m-color, var(--gold)); opacity: var(--m-opacity, .2); z-index: 0;
+}
+.m-ring {
+  position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
+  fill: none; stroke: currentColor; stroke-width: .45; stroke-linecap: round; stroke-linejoin: round;
+  will-change: transform; animation: m-spin var(--t, 140s) linear infinite; animation-play-state: paused;
+}
+.m-rev { animation-direction: reverse; }
+.mandala.m-play .m-ring { animation-play-state: running; }
+@keyframes m-spin { to { transform: rotate(1turn); } }
+
+/* ink-in: every stroke draws from 0 → full length, ring by ring */
+.m-ring :is(use, circle) { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2.8s cubic-bezier(.45, 0, .25, 1); transition-delay: calc(var(--r) * .35s); }
+.m-ring .m-fill { fill: currentColor; fill-opacity: 0; transition: stroke-dashoffset 2.8s cubic-bezier(.45, 0, .25, 1), fill-opacity 1.6s ease; transition-delay: calc(var(--r) * .35s), calc(var(--r) * .35s + 1.8s); }
+.m-ring .m-dot { fill: currentColor; stroke: none; opacity: 0; transition: opacity 1s ease calc(var(--r) * .35s + 1.4s); }
+.mandala.m-drawn .m-ring :is(use, circle) { stroke-dashoffset: 0; }
+.mandala.m-drawn .m-ring .m-fill { fill-opacity: .14; }
+.mandala.m-drawn .m-ring .m-dot { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-ring { animation: none; }
+  .m-ring :is(use, circle) { stroke-dashoffset: 0; }
+  .m-ring .m-fill { fill-opacity: .14; } .m-ring .m-dot { opacity: 1; }
+}
+
+/* ---------- Placements ----------
+   Every mandala is sized to sit fully inside its section (never cut by an edge). */
+.mandala--intro { --size: min(92vw, 92svh, 900px); --m-color: var(--gold-soft); --m-opacity: .2; left: 50%; top: 50%; translate: -50% -50%; }
+.intro > :not(.mandala):not(.intro__lang):not(.intro__petal) { position: relative; z-index: 1; }
+
+/* Hero: one softly behind the names, one framing the arch */
+.mandala--hero-corner { --size: min(32vw, 440px); --m-color: var(--maroon); --m-opacity: .08; left: max(8px, 2vw); top: 50%; translate: 0 -50%; }
+/* sits inside the arch (in front of the glow, behind monogram/lotus/garlands); 80% wide so
+   the whole circle clears the arch walls */
+.mandala--hero-arch { --size: 80%; --m-color: var(--gold); --m-opacity: .38; left: 50%; top: 60%; translate: -50% -50%; z-index: 1; }
+.hero__art { isolation: isolate; }
+
+/* Couple: centred behind the names */
+.couple > :not(.mandala) { position: relative; z-index: 1; }
+.mandala--couple { --size: min(calc(100vw - 32px), 600px); --m-opacity: .16; left: 50%; top: 50%; translate: -50% -50%; }
+
+/* Celebrations: accent tucked inside the top-right, taking the function's colour */
+.events { position: relative; }
+.events > :not(.mandala) { position: relative; z-index: 1; }
+.mandala--events { --size: clamp(150px, 22vw, 300px); --m-color: var(--ev-accent); --m-opacity: .2; right: max(12px, 3vw); top: max(16px, 3vw); transition: color 1s ease; }
+
+/* Closing: soft gold behind the names */
+.closing > :not(.mandala):not(.closing__garland):not(.border-frame) { position: relative; z-index: 1; }
+.mandala--closing { --size: min(calc(100vw - 32px), 680px); --m-color: var(--gold-soft); --m-opacity: .13; left: 50%; top: 50%; translate: -50% -50%; }
+
+/* Phones: every mandala is centred, fills the width (minus margins) and is stronger,
+   so it reads clearly on a small screen */
+@media (max-width: 860px) {
+  .mandala--intro { --m-opacity: .3; }
+  .mandala--hero-corner { --size: calc(100vw - 24px); --m-opacity: .12; left: 50%; top: 290px; translate: -50% -50%; }
+  .mandala--hero-arch { --m-opacity: .5; }
+  .mandala--couple { --size: calc(100vw - 24px); --m-opacity: .3; }
+  .mandala--events { --size: min(calc(100vw - 48px), 320px); --m-opacity: .24; left: 50%; right: auto; top: 24px; translate: -50% 0; }
+  .mandala--closing { --size: calc(100vw - 24px); --m-opacity: .24; }
+}

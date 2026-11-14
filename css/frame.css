@@ -1,0 +1,46 @@
+/* ---------- Palace-arch frame (drawn by js/frame.js) ---------- */
+.palace { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.palace svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; } /* top/height set inline to fit the apex finial */
+.palace .pf-gold { fill: var(--pf-gold); }
+.palace .pf-fill { fill: rgba(216, 184, 120, .3); }
+
+/* Hero: the arch is sized to the screen height so the hero fits in one screen */
+.hero__art { --art-w: clamp(300px, min(32vw, calc((100svh - 260px) * .714)), 390px); width: var(--art-w); margin-top: calc(var(--art-w) * .1); }
+.hero__toran { top: 31%; left: 29%; right: 29%; }
+.hero__crest { top: 49%; }
+.hero__diyas { left: 22%; right: 22%; bottom: 4.5%; }
+.mandala--hero-arch { --size: 60% !important; top: 64% !important; }
+@media (max-width: 860px) {
+  .hero__art { --art-w: min(72vw, 300px); }
+}
+
+/* Closing: a gold frame around the couple's names */
+.closing__frame {
+  --fw: min(calc(100vw - 32px), 640px);
+  /* centred on the section even when it is wider than the padded content box (phones) */
+  position: relative; width: var(--fw); margin: calc(var(--fw) * .1) 0 30px calc(50% - var(--fw) / 2);
+  padding: calc(var(--fw) * .21) calc(var(--fw) * .14) calc(var(--fw) * .07);
+  display: flex; flex-direction: column; align-items: center;
+}
+.closing__frame > :not(.palace) { position: relative; z-index: 1; }
+.closing__lotus { width: calc(var(--fw) * .16); height: auto; aspect-ratio: 120 / 72; color: var(--gold-soft); margin-bottom: 6px; }
+.closing__frame .closing__names { font-size: clamp(2.3rem, calc(var(--fw) * .09), 3.6rem); margin: 4px 0 10px; line-height: 1.1; }
+.closing__frame .closing__thanks { margin: 12px 0 0; }
+html[lang="hi"] .closing__frame .closing__names { font-size: clamp(2.2rem, calc(var(--fw) * .1), 3.8rem); line-height: 1.3; }
+.closing__frame .closing__meta span { white-space: nowrap; }
+
+/* arch contents scale with the arch so they never crowd on short screens */
+.hero__mono { font-size: calc(var(--art-w) * .19); }
+.hero__lotus { width: 40%; margin-top: calc(var(--art-w) * .02); }
+.hero__crest { top: 47%; }
+.hero__diyas svg { width: calc(var(--art-w) * .13); height: calc(var(--art-w) * .13); }
+.hero__toran { top: 29%; }
+.strand svg { width: calc(var(--art-w) * .045); height: calc(var(--art-w) * .045); }
+.hero__crest { top: 50%; }
+.closing__lotus { display: none; }
+.closing__line { max-width: 30ch; }
+@media (max-width: 600px) {
+  .closing__frame { padding: calc(var(--fw) * .36) calc(var(--fw) * .17) calc(var(--fw) * .08); }
+  .closing__frame .closing__names { font-size: 2.1rem; }
+  html[lang="hi"] .closing__frame .closing__names { font-size: 1.9rem; }
+}
