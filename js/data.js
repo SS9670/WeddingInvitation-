@@ -19,7 +19,7 @@ window.WEDDING = {
       // Round portrait. w/h = the file's pixel size. center = [x, y] pixel at the middle of the
       // circle (the face), size = circle diameter in photo pixels (smaller = closer in).
       // bg fills any part of the circle beyond the photo's edge.
-      photo: { src: "images/bride.jpg?v=2", w: 624, h: 803, center: [384, 300], size: 480 },
+      photo: { src: "images/bride.jpg?v=2", w: 624, h: 803, center: [312, 312], size: 624 },
     },
     groom: {
       first: { en: "Shyam", hi: "श्याम" },
