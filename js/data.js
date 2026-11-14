@@ -121,9 +121,9 @@ window.WEDDING = {
     },
   ],
 
-  // Optional MP3 (royalty-free). When empty, santoor in Raag Yaman with tabla
-  // and tanpura is generated in the browser. Starts on the guest's first tap.
-  music: { src: "" },
+  // Background track (looped). Volume 0-1; the file is already mastered quiet.
+  // Starts on the guest's first tap.
+  music: { src: "audio/music.m4a", volume: 0.35 },
 
   closing: {
     line: { en: "Your presence will make our celebration even more special.", hi: "आपकी उपस्थिति हमारे उत्सव को और भी विशेष बना देगी।" },

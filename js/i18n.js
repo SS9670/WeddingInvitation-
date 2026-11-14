@@ -38,13 +38,15 @@ window.I18N = (() => {
     },
   };
 
-  // Hindi first: the printed card is entirely in Hindi. Guests can switch to English.
-  let lang = "hi";
+  // English first. Guests can switch to Hindi (remembered), or force it with ?lang=hi.
+  // Key bumped to v2 so choices saved while Hindi was the default don't stick.
+  const KEY = "invite-lang-v2";
+  let lang = "en";
   try {
     const q = new URLSearchParams(location.search).get("lang");
-    lang = q === "hi" || q === "en" ? q : localStorage.getItem("invite-lang") || "hi";
+    lang = q === "hi" || q === "en" ? q : localStorage.getItem(KEY) || "en";
   } catch (_) {}
-  if (!UI[lang]) lang = "hi";
+  if (!UI[lang]) lang = "en";
 
   const t = (key) => UI[lang][key] ?? UI.en[key] ?? key;
   const tx = (v) => (v && typeof v === "object" && !Array.isArray(v) ? v[lang] ?? v.en : v);
@@ -63,7 +65,7 @@ window.I18N = (() => {
   function set(next) {
     if (next === lang || !UI[next]) return;
     lang = next;
-    try { localStorage.setItem("invite-lang", lang); } catch (_) {}
+    try { localStorage.setItem(KEY, lang); } catch (_) {}
     applyStatic();
     document.dispatchEvent(new Event("lang:change"));
   }
